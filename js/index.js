@@ -24,7 +24,7 @@
  * get all elements by their ID.
  */
 
-init = () => {
+const init = () => {
   const operations = ['add', 'subtract', 'multiply', 'divide', 'modulo'];
 
   // Loop through all operators
@@ -102,5 +102,5 @@ calculate = (operation, first, second) => {
       return 0;
   }
 }
-
+// the load function is fired when the entire page loads, including its content (images, CSS, scripts, etc.).
 window.addEventListener("load", init)
