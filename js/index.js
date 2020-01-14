@@ -23,31 +23,40 @@
  * template literals to combine the operator with the pattern to
  * get all elements by their ID.
  */
-const operations = ['add', 'subtract', 'multiply', 'divide', 'modulo'];
 
-// Loop through all operators
-operations.forEach(function(operation) {
-  // Get the input fields for the operator
-  const input = [
-    document.getElementById(`${operation}_1`),
-    document.getElementById(`${operation}_2`)
-  ];
+const init = () => {
+  const operations = ['add', 'subtract', 'multiply', 'divide', 'modulo'];
 
-  // Get the result field for the operator
-  const result = document.getElementById(`${operation}_result`);
+  // Loop through all operators
+  operations.forEach(operation => {
+    // Get the input fields for the operator
+    const input = [
+      document.querySelector(`#${operation}_1`),
+      document.querySelector(`#${operation}_2`)
+    ];
 
-  // Add an event listener for the input fields, to update the calculation, when
-  // one of them changes to a new value.
-  input.forEach(function(field) {
-    field.addEventListener('change', function(e) {
-      result.value = calculate(
-        operation,
-        Number(input[0].value),
-        Number(input[1].value)
-      );
+    // Get the result field for the operator
+    const result = document.querySelector(`#${operation}_result`);
+
+    // Add an event listener for the input fields, to update the calculation, when
+    // one of them changes to a new value.
+    input.forEach(field => {
+      // cleanup the value of the selected field on focus
+      field.addEventListener('focus', e => {
+        e.target.value = ""
+      });
+      // calculate
+      field.addEventListener('keyup', e => {
+        result.value = calculate(
+          operation,
+          Number(input[0].value),
+          Number(input[1].value)
+        );
+      });
     });
   });
-});
+}
+
 
 /**
  * Returns the result of a mathematical calculation, based on the given
@@ -62,8 +71,8 @@ operations.forEach(function(operation) {
  * @param  {number} second      The right value of the operation
  * @return {number}
  */
-function calculate(operation, first, second) {
-  let result = 0;
+
+calculate = (operation, first, second) => {
 
   switch (operation) {
     case 'add':
@@ -93,3 +102,5 @@ function calculate(operation, first, second) {
       return 0;
   }
 }
+// the load function is fired when the entire page loads, including its content (images, CSS, scripts, etc.).
+window.addEventListener("load", init)
