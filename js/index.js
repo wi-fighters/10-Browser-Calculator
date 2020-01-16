@@ -38,6 +38,13 @@ const init = () => {
     // Get the result field for the operator
     const result = document.querySelector(`#${operation}_result`);
 
+    //remove placeholder on input focus from result field
+    for(let i=0;i<input.length;i++){
+      input[i].addEventListener("focus",function(){
+        result.value=""
+      })
+    }
+
     // Add an event listener for the input fields, to update the calculation, when
     // one of them changes to a new value.
     input.forEach(field => {
